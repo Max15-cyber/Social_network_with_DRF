@@ -4,3 +4,7 @@ export const updateObject = (oldObject, updateProperties) => {
         ...updateProperties
     }
 }
+
+export const getToken = () => {
+    return localStorage.getItem('token')
+}

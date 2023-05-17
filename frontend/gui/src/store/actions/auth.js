@@ -17,11 +17,11 @@ const checkAuthTimeOut = expirationTime => {
         }, expirationTime * 1000)
     }
 }
-export const authLogin = (userName, password) => {
+export const authLogin = (username, password) => {
     return dispatch => {
         dispatch(authStart())
         axios.post('http://127.0.0.1:8000/auth/token/login/', {
-            userName,
+            username,
             password,
         })
         .then(response => {
@@ -37,11 +37,11 @@ export const authLogin = (userName, password) => {
 }
 
 
-export const authSignUp = (userName, email, password) => {
+export const authSignUp = (username, email, password) => {
     return dispatch => {
         dispatch(authStart())
         axios.post('http://127.0.0.1:8000/api/v1/auth/users/', {
-            userName,
+            username,
             email, 
             password,
         })
@@ -73,3 +73,4 @@ export const authCheckState = () => {
         }
     }
 }
+

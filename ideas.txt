@@ -4,3 +4,5 @@ http://127.0.0.1:8000/auth/token/login/
 Токен сохрани.
 
 287da07f8f1103d1ced56072f4b40c8d1c5f43de - токен
+git config --global user.email "you@example.com"
+  git config --global user.name "Your Name"

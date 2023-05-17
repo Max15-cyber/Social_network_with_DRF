@@ -2,16 +2,24 @@ import PostList from "../components/Article"
 import axios from "axios"
 import {useEffect, useState} from "react"
 import CustomForm from "../components/Form"
+import { getToken } from "../store/utility"
 
 
 const ArticleListView = () => {
     const [state, setState] = useState({
         articles: [],
     })
+
+    const token = getToken()
     useEffect(() => {
+        
+        console.log(token)
+        if (!token) {
+            return
+        }
         axios.get("http://127.0.0.1:8000/api/v1/postlist/", {
             headers: {
-                Authorization: 'Token ' + '287da07f8f1103d1ced56072f4b40c8d1c5f43de'
+                Authorization: 'Token ' + token
             }
         })
         .then(response => setState({
