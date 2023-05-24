@@ -22,12 +22,12 @@ class UpdateAPIView(generics.RetrieveUpdateAPIView):
 class DeleteAPIView(generics.RetrieveDestroyAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    permission_classes = (IsAdminOrReadOnly,)
+    permission_classes = (IsOwnerOrReadOnly,)
 
 class CatViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CatSerializer
-    permission_classes = (IsAdminUser,)
+    # permission_classes = (IsAdminUser,)
 
 """    def get(self, request, *args, **kwargs):
         queryset = Post.objects.all()

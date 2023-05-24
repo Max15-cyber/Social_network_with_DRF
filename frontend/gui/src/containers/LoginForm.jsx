@@ -12,6 +12,11 @@ const Login = (props) => {
         password: "",
     })
 
+
+    function f () {
+        return new Promise((resolve, reject) => props.onAuth(state.userName, state.password))
+    }
+
     const changeUserNameValue = event => setState({
         ...state,
         userName: event.target.value,
@@ -23,9 +28,10 @@ const Login = (props) => {
     })
 
     const handleFormSubmit = () => {
-        // console.log(state.userName, state.password)
-        props.onAuth(state.userName, state.password)
-        navigate('/')
+        f().then(() => navigate('/'))
+        // props.onAuth(state.userName, state.password)
+        // setTimeout(() => navigate('/'), 0)
+        // navigate('/')
     }
 
     let errorMessage = null

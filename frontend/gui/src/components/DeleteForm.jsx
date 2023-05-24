@@ -1,13 +1,18 @@
 import { Button, Form } from 'antd';
 import axios from 'axios';
 import { useState } from 'react';
+import { getToken } from '../store/utility';
 
 const DeleteForm = (props) => {
-    /* const [state, setState] = useState({articles: props.data}) */
+    
+    const token = getToken()
     const handleFormSubmit = (articleId) => {
+        if (!token) {
+            return
+        }
         return axios.delete(`http://127.0.0.1:8000/api/v1/postdestroy/${articleId}/`, {
             headers: {
-                Authorization: 'Token ' + '287da07f8f1103d1ced56072f4b40c8d1c5f43de'
+                Authorization: 'Token ' + token
             }
         })
             .then(response => props.setState({ articles: props.articles.filter(post => post.id !== articleId) }))

@@ -1,6 +1,7 @@
 import { Button, Form, Input, Select } from 'antd';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import { getToken } from '../store/utility';
 
 const { TextArea } = Input
 
@@ -26,10 +27,15 @@ const CustomForm = (props) => {
     contentValue: event.target.value,
   })
 
+  const token = getToken()
+
   useEffect(() => {
+    if (!token) {
+      return
+    }
     axios.get("http://127.0.0.1:8000/api/v1/cats/", {
       headers: {
-        Authorization: 'Token ' + '287da07f8f1103d1ced56072f4b40c8d1c5f43de'
+        Authorization: 'Token ' + token
       }
     })
       .then(response => setState({
@@ -48,15 +54,17 @@ const CustomForm = (props) => {
 
     switch (requestType) {
       case 'POST':
+        if (!token) {
+          return
+        }
         return axios.post("http://127.0.0.1:8000/api/v1/postlist/", {
           title,
           content,
           cat: state.catSelectedId,
-          user: 1,
         },
           {
             headers: {
-              Authorization: 'Token ' + '287da07f8f1103d1ced56072f4b40c8d1c5f43de'
+              Authorization: 'Token ' + token
             }
           }
         )
@@ -65,15 +73,17 @@ const CustomForm = (props) => {
           }))
           .then(response => setState({ ...state, titleValue: "", contentValue: "" }))
       case 'PUT':
+        if (!token) {
+          return
+        }
         return axios.put(`http://127.0.0.1:8000/api/v1/postlist/${articleId}/`, {
           title,
           content,
           cat: state.catSelectedId,
-          user: 1,
         },
           {
             headers: {
-              Authorization: 'Token ' + '287da07f8f1103d1ced56072f4b40c8d1c5f43de'
+              Authorization: 'Token ' + token
             }
           }
         )
